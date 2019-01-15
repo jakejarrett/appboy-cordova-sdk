@@ -18,6 +18,7 @@
       </feature>
     </config-file>
     <source-file src="src/android/AppboyPlugin.java" target-dir="src/com/appboy/cordova" />
+    <source-file src="src/android/AppboyReceiver.java" target-dir="src/com/appboy/cordova" />
     <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
     <config-file target="AndroidManifest.xml" parent="/manifest">
       <uses-permission android:name="android.permission.INTERNET" />
@@ -29,6 +30,12 @@
       <receiver android:name="com.appboy.AppboyFcmReceiver" android:permission="com.google.android.c2dm.permission.SEND">
         <intent-filter>
           <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+          <category android:name="$PACKAGE_NAME" />
+        </intent-filter>
+      </receiver>
+      <receiver android:name="com.appboy.cordova.AppboyReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+        <intent-filter>
+          <action android:name="com.appboy.ui.intent.APPBOY_NOTIFICATION_OPENED" />
           <category android:name="$PACKAGE_NAME" />
         </intent-filter>
       </receiver>
