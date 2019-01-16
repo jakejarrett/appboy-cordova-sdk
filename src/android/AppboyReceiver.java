@@ -15,9 +15,8 @@ public class AppboyReceiver extends BroadcastReceiver {
   public void onReceive(Context context, Intent intent) {
     String action = intent.getAction();
 
-    Log.v(TAG, action);
 
-    if ( action.equals("com.appboy.ui.intent.APPBOY_NOTIFICATION_OPENED") ) {
+    if ( action.equals("qq") ) {
         Log.v(TAG, "intent : "+intent);
 
         PackageManager pm = context.getPackageManager();
