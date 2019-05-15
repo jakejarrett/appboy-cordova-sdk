@@ -22,6 +22,7 @@ import com.appboy.models.outgoing.AttributionData;
 import com.appboy.support.AppboyLogger;
 import com.appboy.ui.activities.AppboyFeedActivity;
 import com.appboy.ui.inappmessage.AppboyInAppMessageManager;
+import com.appboy.ui.AppboyNavigator;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
