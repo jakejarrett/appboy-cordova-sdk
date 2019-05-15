@@ -13,24 +13,25 @@ public class AppboyReceiver extends BroadcastReceiver {
 
   @Override
   public void onReceive(Context context, Intent intent) {
-    String action = intent.getAction();
+	String action = intent.getAction();
 
-    if ( action.equals("com.appboy.ui.intent.APPBOY_NOTIFICATION_OPENED") ) {
-        Log.v(TAG, "intent : "+intent);
+	if ( action.equals("com.appboy.ui.intent.APPBOY_NOTIFICATION_OPENED") ) {
+		Log.v(TAG, "intent : "+intent);
 
-        PackageManager pm = context.getPackageManager();
-        Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
+		PackageManager pm = context.getPackageManager();
+		Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
+		Bundle extras = intent.getExtras();
 
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            launchIntent.putExtras(extras);
-        }
-        launchIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        launchIntent.addFlags(Intent.FLAG_FROM_BACKGROUND);
+		if (extras != null) {
+			launchIntent.putExtras(extras);
+		}
 
-        context.startActivity(launchIntent);
+		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND);
 
-    }
+		if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
+			context.startActivity(launchIntent);
+		}
+	}
 
   }
 } 
