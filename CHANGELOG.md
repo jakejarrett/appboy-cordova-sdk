@@ -1,5 +1,22 @@
+## 2.9.0
+
+#### Changed
+- Updated Braze iOS version to 3.14.0.
+- Updated Braze Android version to 3.2.2.
+- Changed the iOS plugin to use Cocoapods instead of a framework integration.
+- Improved the look and feel of in-app messages to adhere to the latest UX and UI best practices. Changes affect font sizes, padding, and responsiveness across all message types. Now supports button border styling.
+
+#### Fixed
+- Fixed the Android plugin not respecting decimal purchase prices.
+  - Fixes https://github.com/Appboy/appboy-cordova-sdk/issues/36.
+
+## 2.8.0
+- Changed the iOS frameworks to be automatically embedded in the `plugin.xml`.
+  - This fixes the "dyld: Library not loaded" issue raised in XCode if the frameworks were not manually embedded.
+- Adds method to immediately flush any pending data via `requestImmediateDataFlush()`.
+
 ## 2.7.1
-- Fixes an issue where sending push on Android results in a crash.
+- Fixes an issue where sending push on Android resulted in a crash in version 2.7.0. Past versions (before 2.7.0) are unaffected.
 
 ## 2.7.0
 - Updates Braze Android version to 3.0.0+

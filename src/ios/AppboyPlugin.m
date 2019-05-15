@@ -1,8 +1,8 @@
 #import "AppboyPlugin.h"
-#import <Appboy_iOS_SDK/AppboyKit.h>
-#import <Appboy_iOS_SDK/ABKAttributionData.h>
+#import <AppboyKit.h>
+#import <ABKAttributionData.h>
 #import "AppDelegate+Appboy.h"
-#import <Appboy_iOS_SDK/AppboyNewsFeed.h>
+#import <AppboyNewsFeed.h>
 
 @interface AppboyPlugin() <ABKAppboyEndpointDelegate>
   @property NSString *APIKey;
@@ -109,6 +109,10 @@
 
 - (void)wipeData:(CDVInvokedUrlCommand *)command {
   [Appboy wipeDataAndDisableForAppRun];
+}
+
+- (void)requestImmediateDataFlush:(CDVInvokedUrlCommand *)command {
+  [[Appboy sharedInstance] flushDataAndProcessRequestQueue];
 }
 
 /*-------ABKUser.h-------*/
