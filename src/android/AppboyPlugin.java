@@ -36,6 +36,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import com.appboy.cordova.CustomAppboyNavigator;
 
 public class AppboyPlugin extends CordovaPlugin {
   private static final String TAG = String.format("Appboy.%s", AppboyPlugin.class.getName());
@@ -72,6 +73,8 @@ public class AppboyPlugin extends CordovaPlugin {
     // Since we've likely passed the first Application.onCreate() (due to the plugin lifecycle), lets call the
     // in-app message manager and session handling now
     AppboyInAppMessageManager.getInstance().registerInAppMessageManager(this.cordova.getActivity());
+
+    AppboyNavigator.setAppboyNavigator(new CustomAppboyNavigator());
   }
 
   /**

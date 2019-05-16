@@ -26,7 +26,7 @@ public class AppboyReceiver extends BroadcastReceiver {
 			launchIntent.putExtras(extras);
 		}
 
-		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND);
+		launchIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
 		if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
 			context.startActivity(launchIntent);

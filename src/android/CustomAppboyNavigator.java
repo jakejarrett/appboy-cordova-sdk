@@ -1,4 +1,4 @@
-package com.appboy.sample;
+package com.appboy.cordova;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,22 +20,36 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 	/**
 	 * Use similar intent based approach here to the below.
 	 */
-  @Override
-  public void gotoNewsFeed(Context context, NewsfeedAction newsfeedAction) {
-    Intent intent = new Intent(context, DroidBoyActivity.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-    intent.putExtras(newsfeedAction.getExtras());
-    intent.putExtra(context.getResources().getString(R.string.source_key), Constants.APPBOY);
-    intent.putExtra(context.getResources().getString(R.string.destination_view), context.getResources().getString(R.string.feed_key));
-    context.startActivity(intent);
-  }
+	@Override
+	public void gotoNewsFeed(Context context, NewsfeedAction newsfeedAction) {
+		Intent intent = new Intent(context, DroidBoyActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+		intent.putExtras(newsfeedAction.getExtras());
+		intent.putExtra(context.getResources().getString(R.string.source_key), Constants.APPBOY);
+		intent.putExtra(context.getResources().getString(R.string.destination_view), context.getResources().getString(R.string.feed_key));
+		context.startActivity(intent);
+	}
 
-  @Override
-  public void gotoUri(Context context, UriAction uriAction) {
-    String uri = uriAction.getUri().toString();
-    if (!StringUtils.isNullOrBlank(uri) && uri.matches(context.getString(R.string.youtube_regex))) {
-      uriAction.setUseWebView(false);
-    }
-    AppboyNavigator.executeUriAction(context, uriAction);
-  }
+	@Override
+	public void gotoUri(Context context, UriAction uriAction) {
+		PackageManager pm = context.getPackageManager();
+		Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
+		Bundle extras = intent.getExtras();
+
+			// String uri = uriAction.getUri().toString();
+			// if (!StringUtils.isNullOrBlank(uri) && uri.matches(context.getString(R.string.youtube_regex))) {
+			//   uriAction.setUseWebView(false);
+			// }
+		// AppboyNavigator.executeUriAction(context, uriAction);
+
+		if (extras != null) {
+			launchIntent.putExtras(extras);
+		}
+
+		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND);
+
+		if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
+		context.startActivity(launchIntent);
+		}
+	}
 }
