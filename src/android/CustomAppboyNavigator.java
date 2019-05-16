@@ -2,6 +2,8 @@ package com.appboy.cordova;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.content.pm.PackageManager;
 
 import com.appboy.Constants;
 import com.appboy.IAppboyNavigator;
@@ -16,19 +18,6 @@ import com.appboy.ui.actions.UriAction;
  * Currently this just opens the current context if no deep link is present, or just restarts the app with new intents if there are intents.
  */
 public class CustomAppboyNavigator implements IAppboyNavigator {
-
-	/**
-	 * Use similar intent based approach here to the below.
-	 */
-	@Override
-	public void gotoNewsFeed(Context context, NewsfeedAction newsfeedAction) {
-		Intent intent = new Intent(context, DroidBoyActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		intent.putExtras(newsfeedAction.getExtras());
-		intent.putExtra(context.getResources().getString(R.string.source_key), Constants.APPBOY);
-		intent.putExtra(context.getResources().getString(R.string.destination_view), context.getResources().getString(R.string.feed_key));
-		context.startActivity(intent);
-	}
 
 	@Override
 	public void gotoUri(Context context, UriAction uriAction) {
