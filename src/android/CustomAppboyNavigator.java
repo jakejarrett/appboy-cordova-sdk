@@ -36,17 +36,17 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 
 	@Override
 	public void gotoUri(Context context, UriAction uriAction) {
-		// PackageManager pm = context.getPackageManager();
-		// Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
-		// Bundle extras = launchIntent.getExtras();
+		PackageManager pm = context.getPackageManager();
+		Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
+		Bundle extras = launchIntent.getExtras();
 
 		String uri = uriAction.getUri().toString();
 		Log.v(CustomAppboyNavigator.class.getSimpleName(), "\n\n\nintent : "+ launchIntent + "\n\n\n");
 		Log.v(CustomAppboyNavigator.class.getSimpleName(), "\n\n\nuri : "+ uri + "\n\n\n");
 
-		// if (extras != null) {
-		// 	launchIntent.putExtras(extras);
-		// }
+		if (extras != null) {
+			launchIntent.putExtras(extras);
+		}
 
 		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND);
 
@@ -55,8 +55,8 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 		}
 		AppboyNavigator.executeUriAction(context, uriAction);
 
-		// if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
-		// 	context.startActivity(launchIntent);
-		// }
+		if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
+			context.startActivity(launchIntent);
+		}
 	}
 }
