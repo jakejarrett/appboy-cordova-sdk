@@ -38,7 +38,7 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 	public void gotoUri(Context context, UriAction uriAction) {
 		PackageManager pm = context.getPackageManager();
 		Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
-		Bundle extras = intent.getExtras();
+		Bundle extras = launchIntent.getExtras();
 
 			// String uri = uriAction.getUri().toString();
 			// if (!StringUtils.isNullOrBlank(uri) && uri.matches(context.getString(R.string.youtube_regex))) {
