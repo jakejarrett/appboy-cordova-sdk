@@ -40,10 +40,12 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 		Intent launchIntent = pm.getLaunchIntentForPackage(context.getPackageName());
 		Bundle extras = launchIntent.getExtras();
 
-			// String uri = uriAction.getUri().toString();
-			// if (!StringUtils.isNullOrBlank(uri) && uri.matches(context.getString(R.string.youtube_regex))) {
-			//   uriAction.setUseWebView(false);
-			// }
+		String uri = uriAction.getUri().toString();
+		Log.v(CustomAppboyNavigator.class.getSimpleName(), "\n\n\nintent : "+ launchIntent + "\n\n\n");
+		Log.v(CustomAppboyNavigator.class.getSimpleName(), "\n\n\nuri : "+ uri + "\n\n\n");
+		// if (!StringUtils.isNullOrBlank(uri) && uri.matches(context.getString(R.string.youtube_regex))) {
+		//	uriAction.setUseWebView(false);
+		// }
 		// AppboyNavigator.executeUriAction(context, uriAction);
 
 		if (extras != null) {
@@ -53,7 +55,7 @@ public class CustomAppboyNavigator implements IAppboyNavigator {
 		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_FROM_BACKGROUND);
 
 		if (launchIntent.resolveActivity(context.getPackageManager()) != null) {
-		context.startActivity(launchIntent);
+			context.startActivity(launchIntent);
 		}
 	}
 }
