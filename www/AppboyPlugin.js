@@ -355,6 +355,11 @@ AppboyPlugin.prototype.disableSdk = function () {
 
 AppboyPlugin.prototype.iosShowPushPrompt = function () {
 	cordova.exec(null, null, "AppboyPlugin", "iosShowPushPrompt", []);
+/**
+* Requests that the Braze SDK immediately flush any pending data.
+*/
+AppboyPlugin.prototype.requestImmediateDataFlush = function () {
+  cordova.exec(null, null, "AppboyPlugin", "requestImmediateDataFlush");
 }
 
 AppboyPlugin.prototype['NotificationSubscriptionTypes'] = {

@@ -1,20 +1,22 @@
 #import "AppboyPlugin.h"
-#import <Appboy_iOS_SDK/AppboyKit.h>
-#import <Appboy_iOS_SDK/ABKAttributionData.h>
+#import <AppboyKit.h>
+#import <ABKAttributionData.h>
 #import "AppDelegate+Appboy.h"
-#import <Appboy_iOS_SDK/AppboyNewsFeed.h>
+#import "IDFADelegate.h"
+#import <AppboyNewsFeed.h>
 
 @interface AppboyPlugin() <ABKAppboyEndpointDelegate>
   @property NSString *APIKey;
   @property NSString *disableAutomaticPushRegistration;
   @property NSString *disableAutomaticPushHandling;
   @property NSString *apiEndpoint;
+  @property NSString *enableIDFACollection;
 @end
 
 @implementation AppboyPlugin
 
 - (NSString *) getApiEndpoint:(NSString *)appboyApiEndpoint {
-  return [appboyApiEndpoint stringByReplacingOccurrencesOfString:@"dev.appboy.com" withString:self.apiEndpoint];
+  return [appboyApiEndpoint stringByReplacingOccurrencesOfString:@"sdk.iad-01.braze.com" withString:self.apiEndpoint];
 }
 
 - (void)pluginInitialize {
@@ -23,6 +25,7 @@
   self.disableAutomaticPushRegistration = settings[@"com.appboy.ios_disable_automatic_push_registration"];
   self.disableAutomaticPushHandling = settings[@"com.appboy.ios_disable_automatic_push_handling"];
   self.apiEndpoint = settings[@"com.appboy.ios_api_endpoint"];
+  self.enableIDFACollection = settings[@"com.appboy.ios_enable_idfa_automatic_collection"];
 
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishLaunchingListener:) name:UIApplicationDidFinishLaunchingNotification object:nil];
   if (![self.disableAutomaticPushHandling isEqualToString:@"YES"]) {
@@ -36,6 +39,13 @@
   // Add the endpoint only if it's non nil
   if (self.apiEndpoint != nil) {
     [appboyLaunchOptions setValue:self forKey: ABKAppboyEndpointDelegateKey];
+  }
+
+  // Set the IDFA delegate for the plugin
+  if ([self.enableIDFACollection isEqualToString:@"YES"]) {
+    NSLog(@"IDFA collection enabled. Using plugin IDFA delegate.");
+    IDFADelegate *idfaDelegate = [[IDFADelegate alloc] init];
+    appboyLaunchOptions[ABKIDFADelegateKey] = idfaDelegate;
   }
 
   [Appboy startWithApiKey:self.APIKey
@@ -109,6 +119,10 @@
 
 - (void)wipeData:(CDVInvokedUrlCommand *)command {
   [Appboy wipeDataAndDisableForAppRun];
+}
+
+- (void)requestImmediateDataFlush:(CDVInvokedUrlCommand *)command {
+  [[Appboy sharedInstance] flushDataAndProcessRequestQueue];
 }
 
 /*-------ABKUser.h-------*/

@@ -1,5 +1,44 @@
+## 2.10.1
+
+#### Fixed
+- Fixed an issue in the iOS plugin where custom endpoints were not correctly getting substituted for the actual server endpoints. 
+
+## 2.10.0
+
+#### Changed
+- Updated Braze iOS version to 3.14.1.
+
+##### Added
+- Added ability for plugin to automatically collect the IDFA information on iOS. To enable, set `com.appboy.ios_enable_idfa_automatic_collection` to `YES` in your `config.xml` project file.
+  - ```
+    <platform name="ios">
+        <preference name="com.appboy.ios_enable_idfa_automatic_collection" value="YES" />
+    </platform>
+    ```
+
+#### Fixed
+- Fixed an issue in the Android plugin where the Braze SDK could be invoked before `pluginInitialize` was called by Cordova. The plugin now explicitly initializes the SDK before any SDK or Android lifecycle methods are called.
+  - Fixes https://github.com/Appboy/appboy-cordova-sdk/issues/38
+
+## 2.9.0
+
+#### Changed
+- Updated Braze iOS version to 3.14.0.
+- Updated Braze Android version to 3.2.2.
+- Changed the iOS plugin to use Cocoapods instead of a framework integration.
+- Improved the look and feel of in-app messages to adhere to the latest UX and UI best practices. Changes affect font sizes, padding, and responsiveness across all message types. Now supports button border styling.
+
+#### Fixed
+- Fixed the Android plugin not respecting decimal purchase prices.
+  - Fixes https://github.com/Appboy/appboy-cordova-sdk/issues/36.
+
+## 2.8.0
+- Changed the iOS frameworks to be automatically embedded in the `plugin.xml`.
+  - This fixes the "dyld: Library not loaded" issue raised in XCode if the frameworks were not manually embedded.
+- Adds method to immediately flush any pending data via `requestImmediateDataFlush()`.
+
 ## 2.7.1
-- Fixes an issue where sending push on Android results in a crash.
+- Fixes an issue where sending push on Android resulted in a crash in version 2.7.0. Past versions (before 2.7.0) are unaffected.
 
 ## 2.7.0
 - Updates Braze Android version to 3.0.0+

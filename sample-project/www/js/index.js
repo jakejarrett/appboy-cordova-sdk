@@ -56,6 +56,7 @@ onDeviceReady: function() {
     document.getElementById("wipeData").addEventListener("click", wipeData);
     document.getElementById("enableSdk").addEventListener("click", enableSdk);
     document.getElementById("disableSdk").addEventListener("click", disableSdk);
+    document.getElementById("requestFlushBtn").addEventListener("click", requestDataFlush);
 
     var success = function(message) {
         alert(message);
@@ -93,6 +94,10 @@ function logCustomEvent() {
     properties["Three"] = "Can't Hide Love";
     AppboyPlugin.logCustomEvent("cordovaCustomEventWithProperties", properties);
     AppboyPlugin.logCustomEvent("cordovaCustomEventWithoutProperties");
+    AppboyPlugin.logCustomEvent("cordovaCustomEventWithFloatProperties", {
+        "Cart Value": 4.95,
+        "Cart Item Name": "Spicy Chicken Bites 5 pack"
+    });
     showTextBubble("Logged custom event");
 }
 
@@ -102,6 +107,7 @@ function logPurchase() {
     properties["Two"] = "Orange";
     properties["Three"] = "Peach";
     AppboyPlugin.logPurchase("testPurchase", 10, "USD", 5, properties);
+    AppboyPlugin.logPurchase("testPurchaseWithDecimal", 13.37, "USD", 5, properties);
     AppboyPlugin.logPurchase("testPurchaseWithNullCurrency", 10, null, 5, properties);
     AppboyPlugin.logPurchase("testPurchaseWithNullQuantity", 10, "USD");
     AppboyPlugin.logPurchase("testPurchaseWithoutProperties", 1500, "JPY", 2);
@@ -183,6 +189,11 @@ function enableSdk() {
 function disableSdk() {
     AppboyPlugin.disableSdk();
     showTextBubble("Disabling the Braze SDK");
+}
+
+function requestDataFlush() {
+    AppboyPlugin.requestImmediateDataFlush();
+    showTextBubble("Requesting data flush");
 }
 
 // Launch functions
