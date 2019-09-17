@@ -4,7 +4,6 @@
 
 /*-------Appboy.h-------*/
 - (void) changeUser:(CDVInvokedUrlCommand *)command;
-- (void) submitFeedback:(CDVInvokedUrlCommand *)command;
 - (void) logCustomEvent:(CDVInvokedUrlCommand *)command;
 - (void) logPurchase:(CDVInvokedUrlCommand *)command;
 - (void) disableSdk:(CDVInvokedUrlCommand *)command;

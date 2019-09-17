@@ -170,9 +170,6 @@ public class AppboyPlugin extends CordovaPlugin {
         Appboy.getInstance(mApplicationContext).logPurchase(args.getString(0), currencyCode, new BigDecimal(args.getLong(1)), quantity, properties);
         return true;
       }
-      case "submitFeedback":
-        Appboy.getInstance(mApplicationContext).submitFeedback(args.getString(0), args.getString(1), args.getBoolean(2));
-        return true;
       case "wipeData":
         Appboy.wipeData(mApplicationContext);
         return true;

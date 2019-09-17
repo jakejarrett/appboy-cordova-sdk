@@ -77,13 +77,6 @@
   [[Appboy sharedInstance] changeUser:userId];
 }
 
-- (void)submitFeedback:(CDVInvokedUrlCommand *)command {
-  NSString *email = [command argumentAtIndex:0 withDefault:nil];
-  NSString *message = [command argumentAtIndex:1 withDefault:nil];
-  BOOL isReportingABug = [[command argumentAtIndex:2 withDefault:nil] boolValue];
-  [[Appboy sharedInstance] submitFeedback:email message:message isReportingABug:isReportingABug];
-}
-
 - (void)logCustomEvent:(CDVInvokedUrlCommand *)command {
   NSString *customEventName = [command argumentAtIndex:0 withDefault:nil];
   NSDictionary *properties = [command argumentAtIndex:1 withDefault:nil];

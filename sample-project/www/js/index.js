@@ -37,7 +37,6 @@ onDeviceReady: function() {
     document.getElementById("changeUserBtn").addEventListener("click", changeUser);
     document.getElementById("logCustomEventBtn").addEventListener("click", logCustomEvent);
     document.getElementById("logPurchaseBtn").addEventListener("click", logPurchase);
-    document.getElementById("submitFeedbackBtn").addEventListener("click", submitFeedback);
     document.getElementById("setCustomUserAttributeBtn").addEventListener("click", setCustomUserAttribute);
     document.getElementById("setUserPropertiesBtn").addEventListener("click", setUserProperties);
     document.getElementById("launchNewsFeedBtn").addEventListener("click", launchNewsFeed);
@@ -106,11 +105,6 @@ function logPurchase() {
     AppboyPlugin.logPurchase("testPurchaseWithNullQuantity", 10, "USD");
     AppboyPlugin.logPurchase("testPurchaseWithoutProperties", 1500, "JPY", 2);
     showTextBubble("Logged purchase");
-}
-
-function submitFeedback() {
-    AppboyPlugin.submitFeedback("cordova@test.com", "nice app!", true);
-    showTextBubble("Submitted feedback");
 }
 
 // Appboy User methods

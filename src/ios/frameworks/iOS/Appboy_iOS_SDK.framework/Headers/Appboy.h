@@ -144,8 +144,6 @@ extern NSString *const ABKPushStoryAppGroupKey;
  *   ABKManualRequestProcessing - Braze will automatically add appropriate network requests (feed updates, user
  *        attribute flushes, feedback posts, etc.) to its network queue, but doesn't process
  *        network requests. Braze will make an exception and process requests in the following cases:
- *        - Feedback requests are made via Appboy::submitFeedback:message:isReportingABug:,
- *          Appboy::submitFeedback:withCompletionHandler:, or a FeedbackViewController.
  *        - Feed requests are made via Appboy::requestFeedRefresh or an ABKFeedViewController. The latter typically 
  *          occurs when an ABKFeedViewController is loaded and displayed on the screen or on a pull to refresh.
  *        - Network requests are required for internal features, such as templated in-app messages
@@ -460,31 +458,6 @@ typedef NS_ENUM(NSInteger, ABKFeedbackSentResult) {
  *
  */
 - (void)logPurchase:(NSString *)productIdentifier inCurrency:(NSString *)currencyCode atPrice:(NSDecimalNumber *)price withQuantity:(NSUInteger)quantity andProperties:(nullable NSDictionary *)properties;
-
-/*!
- * @param replyToEmail The email address to send feedback replies to.
- * @param message The message input by the user. Must be non-null and non-empty.
- * @param isReportingABug Flag indicating whether or not the feedback describes a bug, or is merely a suggestion/question.
- * @return a boolean indicating whether or not the feedback item was successfully queued for delivery.
- *
- * @discussion Submits a piece of feedback to the Braze feedback center so that it can be handled in the Braze dashboard.
- * The request to submit feedback is made immediately, however, this method does not block and will return as soon as the
- * feedback request is placed on the network queue.
- *
- */
-- (BOOL)submitFeedback:(NSString *)replyToEmail message:(NSString *)message isReportingABug:(BOOL)isReportingABug;
-
-/*!
- * @param feedback The feedback object with feedback message, email, and is-bug flag.
- * @param completionHandler The block to execute when the feedback sending process is complete. An ABKFeedbackSentResult enum
- * will be passed to the block indicating if the feedback was sent successfully.
- *
- * @discussion Submits a piece of feedback to the Braze feedback center so that it can be handled in the Braze dashboard.
- * The request to submit feedback is made immediately. However, this method does not block and will return as soon as the
- * feedback request is placed on the network queue.
- *
- */
-- (void)submitFeedback:(ABKFeedback *)feedback withCompletionHandler:(nullable void (^)(ABKFeedbackSentResult feedbackSentResult))completionHandler;
 
 /*!
  * If you're displaying cards on your own instead of using ABKFeedViewController, you should still report impressions of
