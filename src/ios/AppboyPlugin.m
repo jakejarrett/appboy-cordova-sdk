@@ -4,7 +4,7 @@
 #import "AppDelegate+Appboy.h"
 #import <AppboyNewsFeed.h>
 
-@interface AppboyPlugin() <ABKAppboyEndpointDelegate>
+@interface AppboyPlugin()
   @property NSString *APIKey;
   @property NSString *disableAutomaticPushRegistration;
   @property NSString *disableAutomaticPushHandling;
@@ -33,9 +33,9 @@
 - (void)didFinishLaunchingListener:(NSNotification *)notification {
   NSMutableDictionary *appboyLaunchOptions = [@{ABKSDKFlavorKey : @(CORDOVA)} mutableCopy];
 
-  // Add the endpoint only if it's non nil
+   // Add the endpoint only if it's non nil
   if (self.apiEndpoint != nil) {
-    [appboyLaunchOptions setValue:self forKey: ABKAppboyEndpointDelegateKey];
+    appboyLaunchOptions[ABKEndpointKey] = self.apiEndpoint;
   }
 
   [Appboy startWithApiKey:self.APIKey
