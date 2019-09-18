@@ -1,8 +1,11 @@
 #import "AppboyPlugin.h"
-#import <AppboyKit.h>
-#import <ABKAttributionData.h>
+#import <Appboy_iOS_SDK/AppboyKit.h>
+#import <Appboy_iOS_SDK/ABKAttributionData.h>
+#import <Appboy_iOS_SDK/ABKAttributionData.h>
+#import <Appboy_iOS_SDK/ABKAttributionData.h>
 #import "AppDelegate+Appboy.h"
-#import <AppboyNewsFeed.h>
+#import "AppDelegate+Appboy.h"
+#import <Appboy_iOS_SDK/AppboyNewsFeed.h> 
 
 @interface AppboyPlugin()
   @property NSString *APIKey;
@@ -45,28 +48,24 @@
 
   if (![self.disableAutomaticPushRegistration isEqualToString:@"YES"]) {
     UIUserNotificationType notificationSettingTypes = (UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound);
-    if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
-      UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-      // If the delegate hasn't been set yet, set it here in the plugin
-      if (center.delegate == nil) {
-        center.delegate = [UIApplication sharedApplication].delegate;
-      }
-      UNAuthorizationOptions options = UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
-      if (@available(iOS 12.0, *)) {
-        options = options | UNAuthorizationOptionProvisional;
-      }
-      [center requestAuthorizationWithOptions:options
-                            completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                              NSLog(@"Permission granted.");
-                              [[Appboy sharedInstance] pushAuthorizationFromUserNotificationCenter:granted];
-                            }];
-      [[UIApplication sharedApplication] registerForRemoteNotifications];
-    } else if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
-      UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationSettingTypes categories:nil];
-      [[UIApplication sharedApplication] registerForRemoteNotifications];
-      [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    } else {
-      [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notificationSettingTypes];
+   if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_x_Max) {
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            // If the delegate hasn't been set yet, set it here in the plugin
+            if (center.delegate == nil) {
+                center.delegate = [UIApplication sharedApplication].delegate;
+            }
+            [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                      NSLog(@"Permission granted.");
+                                  }];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+        } else if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationSettingTypes categories:nil];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        } else {
+            [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notificationSettingTypes];
+        }
     }
   }
 }
