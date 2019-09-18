@@ -67,7 +67,6 @@
             [[UIApplication sharedApplication] registerForRemoteNotificationTypes: notificationSettingTypes];
         }
     }
-  }
 }
 
 /*-------Appboy.h-------*/
