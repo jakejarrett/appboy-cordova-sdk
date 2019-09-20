@@ -92,23 +92,9 @@
 }
 
 - (void)appboy_swizzled_no_application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  NSString *tokenString;
-  if (@available(iOS 13.0, *)) {
-    NSUInteger dataLength = deviceToken.length;
-    if (dataLength == 0) {
-      return;
-    }
-
-    const unsigned char *dataBuffer = deviceToken.bytes;
-    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
-    for (int i = 0; i < dataLength; ++i) {
-      [hexString appendFormat:@"%02x", dataBuffer[i]];
-    }
-    tokenString = [hexString copy];
-  } else {
-    tokenString = [NSString stringWithFormat:@"%@", deviceToken];
-  }
-  [[Appboy sharedInstance] registerPushToken:tokenString];
+  // If the delegate is not implemented, swizzle the method but don't call the original (or we'd get in a loop)
+  [[Appboy sharedInstance] registerPushToken:
+   [NSString stringWithFormat:@"%@", deviceToken]];
 }
 
 - (void)appboy_swizzled_application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
