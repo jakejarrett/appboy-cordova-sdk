@@ -21,9 +21,3 @@ buildscript {
         classpath 'com.google.gms:google-services:4.0.1'
     }
 }
-
-// apply the google services plugin by its class name since we're not
-// in the root gradle file
-ext.postBuildExtras = {
-    apply plugin: com.google.gms.googleservices.GoogleServicesPlugin
-}
