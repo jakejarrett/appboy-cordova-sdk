@@ -1,4 +1,4 @@
-# Archiving in the next 3-5 months.
+# No longer mainted
 As I will no longer be utilising this SDK in the foreseeable future, This project will be marked as archived & within the year will be deleted.
 
 ![Braze Logo](https://github.com/Appboy/appboy-cordova-sdk/blob/master/braze-logo.png)
